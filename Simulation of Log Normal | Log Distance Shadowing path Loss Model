@@ -7,6 +7,7 @@ GrdBi=15;
 frequency=1*10^9;
 d=41935000*(1:1:500);
 L=1;
+sigma=1;
 Pt=10^((PtdBm-30)/10);
 Gt=10^(GtdBi/10);
 Gr=10^(GrdBi/10);
