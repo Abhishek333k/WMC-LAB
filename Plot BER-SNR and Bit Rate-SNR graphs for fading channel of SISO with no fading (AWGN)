@@ -1,0 +1,33 @@
+clear all;
+close all;
+clc;
+SNR=0:1:20;
+SNRn=10.^(SNR/10);
+N=800; 
+M=60; 
+fBER=zeros(1,length(SNR));
+for mo=1:M
+xbase=sign(randn(1,N)); 
+Sigpow=1;
+for ss=1:length(SNR) 
+
+noipow=Sigpow/SNRn(ss); 
+
+ybase=xbase+sqrt(noipow)*(randn(1,N));
+ydet=(sign((ybase)));
+err_pos=find(ydet~=xbase);
+BERa(ss)=length(err_pos)/N;
+end
+fBER=fBER+BERa;
+end
+
+BERanaAWGN=0.5*exp(-SNRn/2);
+
+semilogy(SNR,fBER/M,'k','LineWidth',3)
+hold on
+semilogy(SNR,BERanaAWGN,'ko','LineWidth',3);
+hold on
+grid on
+xlabel('SNR (dB)');
+ylabel('BER');
+legend('AWGN channel (Simulated)','AWGN channel (Theory)');
