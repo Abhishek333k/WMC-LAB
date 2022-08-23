@@ -1,0 +1,15 @@
+Pt=10*10^-3;
+f=1*10^9;
+c=3*10^8;
+lam=c/f;
+d0=1;
+K=(lam/(4*pi*d0))^2;
+d=1.9;
+gam=2;
+PrFriss=Pt*K*(d0./d).^gam;
+gam=4.5;
+Pr=Pt*K*(d0/d)^gam;
+vari=4
+Pmin=10*log10(Pr/4)
+x=(Pmin-10*log10(Pt)-10*log10(K)+10*gam*log10(d/d0))/vari
+Prob_req=qfunc(x)
