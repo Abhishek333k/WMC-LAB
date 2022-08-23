@@ -1,0 +1,21 @@
+clc;
+clear all;
+N=2;
+H=[0 0;0 1];
+codeSize=input('enter codeSize value');
+if bitand(codeSize,codeSize-1)==0
+while(N~=codeSize)
+        N=N*2;
+        H=repmat(H,[2,2]);
+        [m,n]=size(H);
+for i=m/2+1:m
+for j=n/2+1:n
+H(i,j)=~H(i,j);
+end
+end
+
+end
+else
+disp('invalid codesize: code must be the power of 2');
+end
+disp(H);
