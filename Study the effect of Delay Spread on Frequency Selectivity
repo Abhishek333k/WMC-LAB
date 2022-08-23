@@ -1,0 +1,39 @@
+clear all;
+close all;
+clc;
+an=[1 0.3 -0.8 0.5 -0.4 0.2];
+tn=[0 1 2 3 4 5;0 0.1 0.2 0.3 0.4 0.5]*(10^-6);
+dt=0.01*10^-6; t=0:dt:15*10^(-6); t=t(1:end-1);
+st=zeros(1,length(t));
+st(t<=5*10^-6)=1; 
+for c=1:2 
+for i=1:length(an)
+del=round(tn(c,i)/dt);
+        Ray(i,:)=an(i)*[zeros(1,del) st(1:length(st)-del)];
+end;
+yt(c,:)=sum(Ray);
+end
+subplot(221)
+plot(t*10^6,st)
+xlabel('time (\mu sec)');
+ylabel('Tx signal');
+axis([0 20 -1 2])
+grid on
+subplot(222)
+plot(t*10^6,yt(1,:));
+xlabel('time (\mu sec)');
+ylabel('Rx signal');
+title('Large delay spread')
+axis([0 20 -1 2])
+grid on
+subplot(224)
+plot(t*10^6,yt(2,:));
+xlabel('time (\mu sec)');
+ylabel('Rx signal');
+title('Small delay spread')
+axis([0 20 -1 2])
+grid on
+RMS_delay_spread_1=sqrt(var(tn(1,:)))/(10^-6)
+display('micro sec');
+RMS_delay_spread_2=sqrt(var(tn(2,:)))/(10^-6)
+display('micro sec');
